@@ -67,6 +67,6 @@ class User extends Authenticatable
 
     public function hasRole(string $role): bool
     {
-        return $this->contains('name' , $role);
+        return $this->contains('title' , $role);
     }
 }
