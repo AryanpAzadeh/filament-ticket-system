@@ -56,14 +56,19 @@ class TicketResource extends Resource
             ->columns([
                 TextColumn::make('title')
                     ->description(fn(Ticket $record): string => $record?->description ?? '')
-                    ->wrap(),
+                    ->wrap()
+                    ->sortable(),
                 TextColumn::make('priority')
-                    ->badge(),
+                    ->badge()
+                    ->sortable(),
                 TextColumn::make('status')
-                    ->badge(),
-                TextInputColumn::make('comment')
+                    ->badge()
+                    ->sortable(),
+                TextInputColumn::make('comment'),
+                TextColumn::make('created_at')->dateTime()
+                ->sortable()
 
-            ])
+            ])->defaultSort('created_at', 'desc')
             ->filters([
                 SelectFilter::make('status')
                     ->options(self::$model::STATUS),
