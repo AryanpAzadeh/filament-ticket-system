@@ -10,6 +10,11 @@ class Role extends Model
 {
     use HasFactory;
 
+    const ROLES = [
+        'Admin' => 'Admin',
+        'Agent' => 'Agent',
+    ];
+
     protected $fillable = ['title'];
 
     public function permissions(): BelongsToMany
