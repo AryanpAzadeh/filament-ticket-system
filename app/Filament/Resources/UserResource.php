@@ -30,7 +30,10 @@ class UserResource extends Resource
                 ->autofocus(),
                 TextInput::make('email')
                 ->required()
-                ->type('email')
+                ->type('email'),
+                TextInput::make('password')
+                    ->required()
+                    ->password()
             ]);
     }
 
