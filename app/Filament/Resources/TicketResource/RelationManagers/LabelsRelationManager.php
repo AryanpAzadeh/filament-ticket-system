@@ -35,7 +35,8 @@ class LabelsRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\AttachAction::make(),
+                Tables\Actions\AttachAction::make()
+                    ->recordSelectOptionsQuery(fn (Builder $query) => $query->Active())
             ])
             ->actions([
                 Tables\Actions\DetachAction::make(),
@@ -46,7 +47,8 @@ class LabelsRelationManager extends RelationManager
                 ]),
             ])
             ->emptyStateActions([
-                Tables\Actions\AttachAction::make(),
+                Tables\Actions\AttachAction::make()
+                    ->recordSelectOptionsQuery(fn (Builder $query) => $query->Active())
             ]);
     }
 }
