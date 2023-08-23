@@ -42,6 +42,12 @@ class PermissionPolicy
 
     }
 
+    public function delete(User $user, Permission $permission): bool
+    {
+        return $user->hasPermission('permission_delete');
+
+    }
+
     /**
      * Determine whether the user can delete the model.
      */
