@@ -4,7 +4,9 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\TicketResource\Pages;
 use App\Filament\Resources\TicketResource\RelationManagers;
+use App\Models\Role;
 use App\Models\Ticket;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -34,9 +36,13 @@ class TicketResource extends Resource
                 Select::make('priority')
                     ->options(self::$model::PRIORITY)
                     ->required()
-                ->in(self::$model::PRIORITY),
+                    ->in(self::$model::PRIORITY),
                 Select::make('assigned_to')
-                    ->relationship('assignedTo', 'name')
+                    ->options(
+                        User::whereHas('roles', function (Builder $query) {
+                            $query->where('name', Role::ROLES['Agent']);
+                        })->get()->pluck('name', 'id')
+                    )
                     ->required(),
                 Forms\Components\Textarea::make('description'),
                 Forms\Components\Textarea::make('comment')
