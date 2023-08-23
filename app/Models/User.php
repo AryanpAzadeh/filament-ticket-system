@@ -53,9 +53,9 @@ class User extends Authenticatable
     public function hasPermission(string $permission): bool
     {
         $permissionArray = [];
-        foreach ($this->roles() as $role)
+        foreach ($this->roles as $role)
         {
-            foreach ($role->permission as $singlePermission)
+            foreach ($role->permissions as $singlePermission)
             {
                 $permissionArray[] = $singlePermission->title;
             }
