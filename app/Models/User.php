@@ -44,6 +44,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    protected $with = ['roles.permissions'];
+
 
     public function roles(): BelongsToMany
     {
