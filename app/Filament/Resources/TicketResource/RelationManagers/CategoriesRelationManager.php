@@ -7,8 +7,8 @@ use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Database\Eloquent\Builder;
 
 class CategoriesRelationManager extends RelationManager
 {
@@ -35,7 +35,8 @@ class CategoriesRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\AttachAction::make(),
+                Tables\Actions\AttachAction::make()
+                    ->recordSelectOptionsQuery(fn (Builder $query) => $query->Active())
             ])
             ->actions([
                 Tables\Actions\DetachAction::make(),
@@ -46,7 +47,8 @@ class CategoriesRelationManager extends RelationManager
                 ]),
             ])
             ->emptyStateActions([
-                Tables\Actions\AttachAction::make(),
+                Tables\Actions\AttachAction::make()
+                    ->recordSelectOptionsQuery(fn (Builder $query) => $query->Active())
             ]);
     }
 }
