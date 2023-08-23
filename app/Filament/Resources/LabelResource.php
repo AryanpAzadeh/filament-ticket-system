@@ -42,6 +42,7 @@ class LabelResource extends Resource
                 TextColumn::make('name')
                 ->searchable(),
                 CheckboxColumn::make('is_active')
+                    ->disabled(!auth()->user()->hasPermission('category_edit'))
             ])
             ->filters([
                 //

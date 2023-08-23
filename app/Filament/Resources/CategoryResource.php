@@ -48,6 +48,7 @@ class CategoryResource extends Resource
                     ->searchable(),
                 TextColumn::make('slug'),
                 CheckboxColumn::make('is_active')
+                ->disabled(!auth()->user()->hasPermission('category_edit'))
             ])
             ->filters([
                 //
