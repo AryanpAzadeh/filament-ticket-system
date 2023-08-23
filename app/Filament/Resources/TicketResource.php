@@ -15,6 +15,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\TextInputColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -64,7 +65,10 @@ class TicketResource extends Resource
 
             ])
             ->filters([
-                //
+                SelectFilter::make('status')
+                    ->options(self::$model::STATUS),
+                SelectFilter::make('priority')
+                    ->options(self::$model::PRIORITY)
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
