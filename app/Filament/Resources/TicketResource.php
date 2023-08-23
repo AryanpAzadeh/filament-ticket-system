@@ -33,7 +33,8 @@ class TicketResource extends Resource
                     ->autofocus(),
                 Select::make('priority')
                     ->options(self::$model::PRIORITY)
-                    ->required(),
+                    ->required()
+                ->in(self::$model::PRIORITY),
                 Select::make('assigned_to')
                     ->relationship('assignedTo', 'name')
                     ->required(),
@@ -47,7 +48,7 @@ class TicketResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('title')
-                    ->description(fn(Ticket $record): string => $record->description)
+                    ->description(fn(Ticket $record): string => $record?->description ?? '')
                     ->wrap(),
                 TextColumn::make('priority')
                     ->badge(),
