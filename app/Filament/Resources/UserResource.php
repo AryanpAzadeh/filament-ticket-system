@@ -26,14 +26,15 @@ class UserResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
-                ->required()
-                ->autofocus(),
+                    ->required()
+                    ->autofocus(),
                 TextInput::make('email')
-                ->required()
-                ->type('email'),
+                    ->required()
+                    ->type('email'),
                 TextInput::make('password')
                     ->required()
                     ->password()
+                    ->autocomplete(false)
             ]);
     }
 
