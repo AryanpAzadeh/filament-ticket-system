@@ -8,11 +8,13 @@ use App\Models\Label;
 use Filament\Forms;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\CheckboxColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -30,7 +32,7 @@ class LabelResource extends Resource
                 TextInput::make('name')
                 ->required()
                 ->autofocus(),
-                Checkbox::make('is_active')
+                Toggle::make('is_active')
 
             ]);
     }
@@ -41,7 +43,7 @@ class LabelResource extends Resource
             ->columns([
                 TextColumn::make('name')
                 ->searchable(),
-                CheckboxColumn::make('is_active')
+                ToggleColumn::make('is_active')
                     ->disabled(!auth()->user()->hasPermission('category_edit'))
             ])
             ->filters([

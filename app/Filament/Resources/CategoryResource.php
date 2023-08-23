@@ -8,14 +8,17 @@ use App\Models\Category;
 use Filament\Forms;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\CheckboxColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Str;
 
 class CategoryResource extends Resource
 {
@@ -32,11 +35,11 @@ class CategoryResource extends Resource
                     ->autofocus()
                     ->reactive()
                     ->afterStateUpdated(function ($state, $set) {
-                        $set('slug', \Str::slug($state));
+                        $set('slug', Str::slug($state));
                     }),
                 TextInput::make('slug')
                     ->required(),
-                Checkbox::make('is_active')
+                Toggle::make('is_active')
             ]);
     }
 
@@ -47,7 +50,7 @@ class CategoryResource extends Resource
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('slug'),
-                CheckboxColumn::make('is_active')
+                ToggleColumn::make('is_active')
                 ->disabled(!auth()->user()->hasPermission('category_edit'))
             ])
             ->filters([
