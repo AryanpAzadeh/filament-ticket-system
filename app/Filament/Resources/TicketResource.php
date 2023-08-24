@@ -60,23 +60,20 @@ class TicketResource extends Resource
                     ->sortable(),
                 TextColumn::make('priority')
                     ->badge()
-                    ->color(fn (string $state): string => match ($state) {
+                    ->color(fn(string $state): string => match ($state) {
                         'Low' => 'gray',
                         'Medium' => 'warning',
                         'High' => 'danger',
                     })
                     ->sortable(),
-                TextColumn::make('status')
-                    ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        'Archived' => 'gray',
-                        'Open' => 'success',
-                        'Close' => 'danger',
-                    })
-                    ->sortable(),
-                TextInputColumn::make('comment'),
+                Tables\Columns\SelectColumn::make('status')
+                    ->disabled(!auth()->user()->hasPermission('ticket_edit'))
+                    ->options(self::$model::STATUS)
+                ->selectablePlaceholder(false),
+                TextInputColumn::make('comment')
+                    ->disabled(!auth()->user()->hasPermission('ticket_edit')),
                 TextColumn::make('created_at')->dateTime()
-                ->sortable()
+                    ->sortable()
 
             ])->defaultSort('created_at', 'desc')
             ->filters([
